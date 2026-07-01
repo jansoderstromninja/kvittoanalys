@@ -3,26 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KvittoAnalys AI - Elegant Dark Theme</title>
-    <!-- Tailwind CSS CDN -->
+    <title>KvittoAnalys AI</title>
+    
+    <!-- Tailwind CSS v4 CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-              display: ['Space Grotesk', 'sans-serif'],
-            }
-          }
-        }
-      }
-    </script>
-    <!-- Google Fonts for Typography pairing -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts: Inter, Space Grotesk, JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Firebase Realtime Database SDK via CDN (Compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <style>
-      /* Smooth transitions and scrollbars customized for the elegant dark theme */
+      /* Font customizations matching theme instructions */
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #0B1221;
+      }
+      .font-display {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
@@ -31,525 +36,413 @@
         background: rgba(11, 18, 33, 0.8);
       }
       ::-webkit-scrollbar-thumb {
-        background: rgba(245, 158, 11, 0.35);
+        background: rgba(245, 158, 11, 0.3);
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: rgba(245, 158, 11, 0.55);
-      }
-      .receipt-paper {
-        background-color: #ffffff;
-        color: #1e293b;
-        transform: rotate(0.5deg);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        background: rgba(245, 158, 11, 0.5);
       }
     </style>
   </head>
-  <body class="min-h-full bg-[#0B1221] text-slate-100 font-sans antialiased overflow-x-hidden flex flex-col relative pb-10">
+  <body class="h-full text-slate-100 flex flex-col justify-between overflow-x-hidden select-none">
 
-    <!-- Decorative Archipelago Background Atmosphere -->
-    <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-sky-950/10 via-slate-900/5 to-transparent pointer-events-none z-0"></div>
-    <div class="absolute top-[20%] right-[10%] w-72 h-72 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-[30%] left-[5%] w-96 h-96 bg-sky-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <!-- Glowing Background Ambiance -->
+    <div class="fixed top-0 left-0 w-full h-[600px] bg-gradient-to-b from-sky-950/10 via-slate-900/5 to-transparent pointer-events-none z-0"></div>
+    <div class="fixed top-[20%] right-[10%] w-72 h-72 bg-amber-500/5 rounded-full blur-3xl pointer-events-none z-0"></div>
+    <div class="fixed bottom-[30%] left-[5%] w-96 h-96 bg-sky-500/5 rounded-full blur-3xl pointer-events-none z-0"></div>
 
-    <!-- --- Top Header Navigation Bar --- -->
-    <header class="sticky top-0 bg-[#151E2E] border-b border-slate-800 z-40 px-4 h-16 flex items-center shrink-0">
-      <div class="w-full max-w-md mx-auto flex items-center justify-between">
-        
-        <!-- Logo -->
-        <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 bg-amber-500 rounded flex items-center justify-center font-bold text-slate-900 text-lg shadow-md shadow-amber-950/30">
-            K
-          </div>
-          <div>
-            <h1 class="font-display font-bold text-base tracking-tight text-white leading-none">
-              KvittoAnalys <span class="text-amber-500">AI</span>
-            </h1>
-            <p class="text-[9px] text-slate-400 tracking-wider font-mono uppercase mt-0.5">
-              Elegant Dark
-            </p>
-          </div>
+    <!-- Header Navigation -->
+    <header class="h-16 flex items-center justify-between px-6 bg-[#151E2E] border-b border-slate-800 shrink-0 z-10 relative">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 bg-amber-500 rounded flex items-center justify-center font-bold text-slate-900 text-lg shadow-md shadow-amber-950/30">
+          K
         </div>
-
-        <!-- Navigation tabs (Simulating React Tab State) -->
-        <div class="flex space-x-3 text-xs font-semibold h-16 items-center">
-          <button
-            onclick="switchTab('ingest')"
-            id="tab-ingest"
-            class="h-16 px-1 transition-all border-b-2 border-amber-500 text-amber-500 flex items-center gap-1 cursor-pointer"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-            <span>Skanna</span>
-          </button>
-          
-          <button
-            onclick="switchTab('review')"
-            id="tab-review"
-            class="h-16 px-1 transition-all border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            <span>Granska</span>
-          </button>
-          
-          <button
-            onclick="switchTab('history')"
-            id="tab-history"
-            class="h-16 px-1 transition-all border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer"
-          >
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span>Historik</span>
-          </button>
+        <div>
+          <h1 class="text-base font-bold tracking-tight font-display text-white">KvittoAnalys <span class="text-amber-500">AI</span></h1>
+          <p class="text-[9px] text-slate-400 font-mono tracking-wider uppercase">Skarp Firebase & Gemini</p>
         </div>
+      </div>
+      
+      <!-- Tab Controls -->
+      <div class="flex space-x-4 text-xs font-semibold h-16 items-center">
+        <button onclick="showTab('ingest')" id="btn-ingest" class="text-amber-500 border-b-2 border-amber-500 h-16 px-1 transition-colors flex items-center space-x-1 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+          <span>Ladda Upp</span>
+        </button>
+        <button onclick="showTab('review')" id="btn-review" class="text-slate-400 hover:text-white border-b-2 border-transparent h-16 px-1 transition-colors flex items-center space-x-1 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+          <span>Granska</span>
+        </button>
+        <button onclick="showTab('dashboard')" id="btn-dashboard" class="text-slate-400 hover:text-white border-b-2 border-transparent h-16 px-1 transition-colors flex items-center space-x-1 cursor-pointer">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span>Historik</span>
+        </button>
+      </div>
 
+      <div class="hidden sm:flex items-center space-x-3">
+        <div class="text-right text-[11px]">
+          <p class="text-slate-400 font-medium">Session status</p>
+          <p class="text-emerald-400 font-mono text-[10px] uppercase font-bold flex items-center justify-end">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block mr-1 animate-pulse"></span>
+            Aktiv
+          </p>
+        </div>
       </div>
     </header>
 
-    <!-- --- Main Mobile-optimized Container --- -->
-    <main class="flex-1 w-full max-w-md mx-auto px-4 pt-6 z-10 relative">
-
-      <!-- Dynamic Firebase Sync Success Banner -->
-      <div id="firebase-toast" class="hidden mb-4 p-3 bg-gradient-to-r from-emerald-950 to-[#102A45] border border-emerald-500/30 rounded-xl text-xs text-emerald-300 flex items-center gap-2.5 shadow-lg shadow-black/40">
-        <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+    <!-- Main Content Stage -->
+    <main class="flex-1 flex flex-col overflow-y-auto max-w-xl mx-auto w-full px-4 py-6 z-10 relative">
+      
+      <!-- Toast Notification Alert -->
+      <div id="toast" class="hidden transform translate-y-[-10px] opacity-0 transition-all duration-300 mb-4 p-3.5 bg-gradient-to-r from-emerald-950/90 to-[#102A45]/95 border border-emerald-500/30 rounded-2xl text-xs text-emerald-300 flex items-center space-x-3 shadow-xl shadow-black/50">
+        <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <div class="flex-1">
-          <p class="font-semibold">Sparad automatiskt till Cloud Firestore!</p>
-          <p class="text-[10px] text-slate-400">Firebase Firestore synkad: days/2026-06-30</p>
+          <p class="font-bold text-white" id="toast-title">Information sparad</p>
+          <p class="text-[11px] text-slate-300" id="toast-desc">Synkronisering slutförd.</p>
         </div>
       </div>
 
-      <!-- ========================================================= -->
-      <!-- TAB 1: INGESTION-FLIK                                      -->
-      <!-- ========================================================= -->
-      <section id="view-ingest" class="space-y-5">
-        
-        <!-- App Intro Banner -->
+      <!-- Firebase Setup Missing banner if not configured -->
+      <div id="firebase-warning" class="hidden p-3 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-xs text-amber-200 mb-4 flex items-start space-x-2.5">
+        <svg class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        <div class="flex-1 space-y-1">
+          <p class="font-bold">Kör i offline-demoläge (Firebase ej konfigurerad)</p>
+          <p class="text-[11px] text-slate-400 leading-normal">
+            Appen sparar lokalt i webbläsaren. För att ansluta skarpt: öppna <code class="bg-[#1A2333] px-1 py-0.5 rounded text-white font-mono text-[10px]">index.html</code> och lägg till dina Firebase & Gemini-nycklar.
+          </p>
+        </div>
+      </div>
+
+      <!-- ================== SECTION 1: INGEST / SKANNA ================== -->
+      <section id="view-ingest" class="space-y-5 animate-fade">
         <div class="bg-[#1A2333] border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
           <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl"></div>
-          <h2 class="font-display font-medium text-white text-sm mb-1.5 flex items-center gap-2">
-            <svg class="w-4 h-4 text-amber-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-            Smart kvittoextrahering
+          <h2 class="font-display font-medium text-white text-sm mb-1.5 flex items-center">
+            <svg class="w-4 h-4 text-amber-500 mr-1.5" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464a1 1 0 10-1.414-1.414l-.707.707a1 1 0 101.414 1.414l.707-.707zM5 10a1 1 0 11-2 0 1 1 0 012 0zM8 16v-1a1 1 0 112 0v1a1 1 0 11-2 0zM12 14a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            Smart kvittoextrahering med Gemini AI
           </h2>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Ladda upp eller klistra in rå kvitto-text. Vår AI extraherar produkter, tillämpar kampanjer direkt och sorterar automatiskt bort flaskpant så att du får ren produktstatistik i din Firebase.
+          <p class="text-xs text-slate-300 leading-relaxed font-sans">
+            Klistra in kvitto-text från Kivra eller din e-post. Vår AI extraherar produkter, tillämpar kampanjer direkt och sorterar bort flaskpant så att du får ren produktstatistik direkt i din Firebase-databas.
           </p>
         </div>
 
-        <!-- Drag and Drop Zone / File Picker Mock -->
-        <div
-          id="dropzone"
-          onclick="triggerFileSelect()"
-          class="border-2 border-dashed border-slate-800 bg-[#1A2333] rounded-2xl p-8 text-center cursor-pointer transition-all hover:border-slate-700 hover:bg-[#1A2333]/90"
-        >
-          <input type="file" id="file-input" onchange="handleFileSelected(event)" class="hidden" accept="image/*,application/pdf">
-          
+        <!-- Drag & Drop Zone / File Picker Simulated -->
+        <div id="drop-zone" onclick="document.getElementById('file-picker').click()" class="border-2 border-dashed border-slate-800 bg-[#1A2333]/40 rounded-2xl p-8 text-center cursor-pointer hover:border-slate-700 hover:bg-[#1A2333]/60 transition-all">
+          <input type="file" id="file-picker" class="hidden" accept="image/*,application/pdf" onchange="handleFileSelected(event)" />
           <div class="flex flex-col items-center">
-            <div id="dropzone-icon" class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-3">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+            <div id="upload-icon-container" class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
             </div>
-            
-            <h4 id="dropzone-text" class="font-medium text-white text-sm mb-1">
-              Bläddra eller släpp kvittofil
-            </h4>
-            <p id="dropzone-subtext" class="text-[11px] text-slate-400 max-w-[220px]">
-              Stöder PDF-kvitton, bilder (Kivra-skärmdumpar) eller foton.
-            </p>
+            <h4 class="font-medium text-white text-sm mb-1" id="upload-title">Släpp kvittofil eller klicka</h4>
+            <p class="text-[11px] text-slate-400 max-w-[220px]" id="upload-desc">Stöder PDF-kvitton, skärmdumpar eller foton.</p>
           </div>
         </div>
 
-        <!-- Textarea Paste Box -->
+        <!-- Manual Paste Area -->
         <div class="space-y-2">
           <div class="flex items-center justify-between">
-            <label class="text-xs font-medium text-slate-300 flex items-center gap-1.5">
+            <label class="text-xs font-medium text-slate-300 flex items-center space-x-1.5">
               <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-              Manuellt rå kvitto-text (för snabbtest)
+              <span>Klistra in kvitto-text</span>
             </label>
-            <button
-              onclick="clearRawText()"
-              id="btn-clear-text"
-              class="hidden text-[10px] text-slate-400 hover:text-slate-200 transition"
-            >
-              Rensa
-            </button>
+            <button onclick="clearText()" class="text-[10px] text-slate-500 hover:text-slate-300 transition-colors">Rensa</button>
           </div>
           
           <div class="relative">
-            <textarea
-              id="raw-text"
-              oninput="handleTextareaInput()"
-              placeholder="Klistra in OCR-text från Kivra eller rå kvitto-text här..."
-              class="w-full h-32 bg-[#1A2333] border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 transition-all resize-none placeholder-slate-600"
-            ></textarea>
+            <textarea id="raw-receipt-text" placeholder="Klistra in rå text från ditt butikskvitto här..." class="w-full h-36 bg-[#1A2333] border border-slate-800 rounded-xl p-3 text-xs font-mono text-slate-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500/20 transition-all resize-none placeholder-slate-600"></textarea>
             
-            <div id="paste-placeholder" class="absolute inset-0 flex items-center justify-center pointer-events-none p-4">
+            <div id="textarea-placeholder-helper" class="absolute inset-0 flex items-center justify-center pointer-events-none p-4">
               <div class="text-center">
-                <span class="text-[11px] text-slate-600 block mb-1">Inget inklippt än?</span>
-                <button
-                  type="button"
-                  onclick="useMockReceiptTemplate()"
-                  class="pointer-events-auto px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] rounded border border-slate-700 transition"
-                >
-                  Använd testkvitto: S-Market Perniö
+                <span class="text-[11px] text-slate-600 block mb-1.5">Inget inklippt än?</span>
+                <button onclick="loadSampleReceipt(event)" class="pointer-events-auto px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] rounded-lg border border-slate-700 transition">
+                  Använd testkvitto: S-Market Perniö (2026-06-30)
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Analyse Action Trigger Button -->
-        <button
-          id="btn-analyze"
-          onclick="simulateAnalysis()"
-          disabled
-          class="w-full py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all shadow-lg flex items-center justify-center gap-2 bg-slate-800/80 text-slate-500 cursor-not-allowed"
-        >
-          <svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          Analysera med Gemini AI
-          <svg class="w-3.5 h-3.5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        <!-- Analyze Button -->
+        <button id="btn-analyze-execute" onclick="startReceiptAnalysis()" class="w-full py-4 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-2xl shadow-lg shadow-sky-950/40 flex items-center justify-center space-x-2 transition-all active:scale-[0.99] cursor-pointer">
+          <svg class="w-4 h-4 text-amber-300 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
+          <span>Starta AI Analys med Gemini</span>
         </button>
-
-        <!-- Sandbox Metadata Info -->
-        <div class="p-3 bg-[#1A2333]/40 border border-slate-800/60 rounded-xl text-[11px] text-slate-400 flex gap-2">
-          <svg class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-          <span>
-            Eftersom detta är en interaktiv mockup laddas ett genuint kvitto från <strong>S-Market Perniö (2026-06-30)</strong> för att demonstrera exakt hur appens regelmotor rensar flaskpant och lagrar JSON i Firebase.
-          </span>
-        </div>
-
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 1.5: SIMULATED MULTI-STAGE LOADING SCREEN              -->
-      <!-- ========================================================= -->
-      <section id="view-loading" class="hidden bg-[#1A2333] border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/50">
+      <!-- ================== ANALYSIS WAITING / SPINNER ================== -->
+      <section id="view-analysis-waiting" class="hidden bg-[#1A2333] border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/50 space-y-6">
         <div class="flex flex-col items-center py-6 text-center">
-          
-          <!-- Glowing Spinner Orb -->
           <div class="relative mb-6">
             <div class="w-16 h-16 rounded-full border-4 border-slate-800 border-t-amber-500 animate-spin"></div>
-            <svg class="w-6 h-6 text-amber-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+            <svg class="w-6 h-6 text-amber-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464a1 1 0 10-1.414-1.414l-.707.707a1 1 0 101.414 1.414l.707-.707zM5 10a1 1 0 11-2 0 1 1 0 012 0zM8 16v-1a1 1 0 112 0v1a1 1 0 11-2 0zM12 14a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
           </div>
 
-          <h3 class="font-display font-medium text-lg text-white mb-1">
-            Gemini API analyserar kvittot
-          </h3>
-          <p class="text-xs text-slate-400 max-w-[280px] mb-8">
-            Vår avancerade multimodal-modell tar bort pant och identifierar kampanjpriser...
+          <h3 class="font-display font-medium text-lg text-white mb-1">Analyserar kvitto...</h3>
+          <p class="text-xs text-slate-400 max-w-[280px] mb-8 leading-normal">
+            Ansluter till Gemini Pro API och kör strukturerad extraheringsmotor. Sorterar bort flaskpant och kampanjer.
           </p>
 
-          <!-- Simulated Running Progress Logs -->
-          <div id="loading-logs-container" class="w-full bg-[#0B1221] rounded-xl p-4 text-left border border-slate-800/80 font-mono text-[11px] space-y-2 max-h-48 overflow-y-auto">
-            <!-- Simulated rows appended programmatically -->
+          <!-- Simulated Console Log Outputs -->
+          <div class="w-full bg-[#0B1221] rounded-xl p-4 text-left border border-slate-800/80 font-mono text-[10px] space-y-2 max-h-48 overflow-y-auto">
+            <div id="log-step-1" class="text-slate-500 flex items-center space-x-2">
+              <span class="step-icon">○</span> <span>Ansluter till Gemini API...</span>
+            </div>
+            <div id="log-step-2" class="text-slate-500 flex items-center space-x-2">
+              <span class="step-icon">○</span> <span>Analyserar text och letar efter radstrukturer...</span>
+            </div>
+            <div id="log-step-3" class="text-slate-500 flex items-center space-x-2">
+              <span class="step-icon">○</span> <span>Extraherar butik och transaktionsmetadata...</span>
+            </div>
+            <div id="log-step-4" class="text-slate-500 flex items-center space-x-2">
+              <span class="step-icon">○</span> <span>Rensar pant och normaliserar priser...</span>
+            </div>
+            <div id="log-step-5" class="text-slate-500 flex items-center space-x-2">
+              <span class="step-icon">○</span> <span>Synkroniserar slutligt kvitto till databas...</span>
+            </div>
           </div>
-
-          <!-- Future Layout Preview Skeletons -->
-          <div class="w-full mt-6 space-y-3 opacity-20 animate-pulse">
-            <div class="h-6 bg-slate-700 rounded-md w-1/3 mx-auto"></div>
-            <div class="h-4 bg-slate-700 rounded-md w-1/2 mx-auto"></div>
-            <div class="border-t border-slate-800 my-4"></div>
-            <div class="h-4 bg-slate-700 rounded-md w-full"></div>
-            <div class="h-4 bg-slate-700 rounded-md w-full"></div>
-          </div>
-
         </div>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 2: KVITTOGRANSKNING (EFTER ANALYS)                    -->
-      <!-- ========================================================= -->
-      <section id="view-review" class="hidden space-y-4">
-        
-        <!-- Default State: No Receipt Analysed -->
-        <div id="no-receipt-container" class="bg-[#1A2333] border border-slate-800 rounded-2xl p-8 text-center text-slate-400 space-y-4">
-          <svg class="w-10 h-10 text-slate-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          <div>
-            <h3 class="font-display font-medium text-white text-sm mb-1">
-              Inget kvitto att visa än
-            </h3>
-            <p class="text-xs max-w-xs mx-auto">
-              Gå till <strong>Skanna</strong> fliken, ladda upp ett kvitto eller klistra in texten för att utlösa analysen.
-            </p>
+      <!-- ================== SECTION 2: REVIEW / GRANSKA ================== -->
+      <section id="view-review" class="hidden space-y-4 animate-fade">
+        <!-- Firebase Status Badge Info -->
+        <div class="bg-[#1A2333] border border-slate-800 rounded-2xl p-4 flex items-center justify-between shadow-md">
+          <div class="flex items-center space-x-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+            </div>
+            <div>
+              <span class="text-[9px] text-amber-500 font-mono tracking-wide uppercase font-semibold">Databas-sökväg</span>
+              <p class="text-xs font-mono font-bold text-white tracking-tight flex items-center space-x-1.5" id="review-db-path">
+                days/2026-06-30/receipts
+              </p>
+            </div>
           </div>
-          <button
-            onclick="switchTab('ingest')"
-            class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white text-xs font-bold rounded-xl shadow-md transition"
-          >
-            Skanna nu
-          </button>
+          <div>
+            <span id="badge-saved-status" class="px-2.5 py-1 rounded-full text-[9px] font-bold bg-slate-800 text-slate-400 border border-slate-700 uppercase">
+              Osparad
+            </span>
+          </div>
         </div>
 
-        <!-- Receipt Present Container -->
-        <div id="receipt-present-container" class="hidden space-y-4">
-          
-          <!-- Firebase Sync Header Card -->
-          <div class="bg-[#1A2333] border border-slate-800 rounded-2xl p-4 flex items-center justify-between shadow-md">
-            <div class="flex items-center gap-3">
-              <div class="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-              </div>
-              <div>
-                <span class="text-[10px] text-amber-500 font-mono tracking-wide uppercase font-semibold">
-                  Firebase Firestore Path
-                </span>
-                <p id="receipt-saved-path" class="text-xs font-mono font-bold text-white tracking-tight flex items-center gap-1.5">
-                  days/2026-06-30
-                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                </p>
-              </div>
-            </div>
-            <div class="text-right">
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-500/20">
-                Auto-synkad
-              </span>
-            </div>
-          </div>
-
-          <!-- Skeuomorphic Physical White Receipt Container -->
-          <div class="receipt-paper rounded-3xl overflow-hidden border border-slate-200 transition-all duration-300 font-mono">
+        <!-- Skeuomorphic Physical Paper Receipt Mockup -->
+        <div class="bg-white text-slate-800 rounded-3xl overflow-hidden shadow-2xl border border-slate-200 transform duration-300 transition-all font-mono p-1">
+          <div class="border border-dashed border-slate-200 rounded-2xl p-4 space-y-4">
             
             <!-- Receipt Header -->
-            <div class="p-5 border-b border-dashed border-slate-200 bg-slate-50/50 relative">
-              <div class="absolute top-0 right-0 w-24 h-24 bg-slate-200/10 rounded-full blur-xl"></div>
+            <div class="text-center border-b border-dashed border-slate-300 pb-4 relative">
+              <span class="px-2 py-0.5 rounded text-[8px] font-bold tracking-wide uppercase bg-slate-800 text-white font-sans inline-block mb-1">KvittoAnalys AI Parser</span>
+              <h3 class="font-sans font-black text-slate-900 text-lg uppercase tracking-tight mt-1" id="receipt-store-name">Butiksnamn</h3>
+              <p class="text-[10px] text-slate-500 mt-1 font-sans flex items-center justify-center space-x-1">
+                <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span id="receipt-store-address">Salontie 1, Perniö</span>
+              </p>
               
-              <div class="flex items-start justify-between">
-                <div>
-                  <span class="px-2 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-slate-800 text-white">
-                    S-Ryhmä Finland
-                  </span>
-                  <h3 id="receipt-store-name" class="font-sans font-bold text-slate-900 text-lg tracking-tight mt-1.5">
-                    S-Market Perniö
-                  </h3>
-                  <p id="receipt-address" class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5 font-sans">
-                    <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    Salontie 1, 25500 Perniö
-                  </p>
+              <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-500 mt-4 px-2 font-mono">
+                <div class="text-left flex items-center space-x-1">
+                  <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  <span id="receipt-date-display">2026-06-30</span>
                 </div>
-
-                <div class="text-right flex flex-col items-end">
-                  <span id="receipt-date" class="text-[10px] text-slate-500 flex items-center gap-1">
-                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    2026-06-30
-                  </span>
-                  <span id="receipt-time" class="text-[9px] text-slate-400 flex items-center gap-1 mt-0.5">
-                    <svg class="w-3 h-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    14:22
-                  </span>
+                <div class="text-right flex items-center justify-end space-x-1">
+                  <svg class="w-3 h-3 text-slate-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  <span id="receipt-time-display">14:22</span>
                 </div>
               </div>
             </div>
 
-            <!-- Items List -->
-            <div class="p-4 space-y-3">
-              <div class="flex items-center justify-between text-[9px] text-slate-400 uppercase tracking-wider pb-1.5 border-b border-dashed border-slate-200 font-sans font-bold">
-                <span>Artikel & Varor</span>
-                <div class="flex gap-10">
-                  <span>Mängd / Pris</span>
-                  <span>Totalt</span>
-                </div>
+            <!-- Receipt Items Body -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-[9px] text-slate-400 uppercase pb-1 border-b border-dashed border-slate-200 font-sans font-bold">
+                <span>Vara (Kvantitet)</span>
+                <span>Enhetspris & Radtotal</span>
               </div>
 
-              <!-- Programmatic items injection here -->
-              <div id="receipt-items-container" class="space-y-1 max-h-80 overflow-y-auto pr-1"></div>
+              <!-- Loopable Items Container -->
+              <div id="receipt-items-container" class="space-y-1.5 max-h-72 overflow-y-auto pr-1">
+                <!-- Dynamically populated rows go here -->
+              </div>
 
-              <!-- Add New Product Button -->
-              <button
-                onclick="insertNewEmptyItem()"
-                class="w-full py-2 border border-dashed border-slate-300 hover:border-slate-400 hover:bg-slate-50 rounded-xl text-slate-500 hover:text-slate-800 text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all font-sans cursor-pointer"
-              >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                Lägg till ny produkt i listan
+              <!-- Inline Add New Product Button -->
+              <button onclick="appendEmptyReviewRow()" class="w-full py-1.5 border border-dashed border-slate-300 hover:border-slate-400 hover:bg-slate-50 rounded-xl text-slate-500 hover:text-slate-800 text-[11px] font-bold flex items-center justify-center space-x-1.5 transition-all font-sans cursor-pointer mt-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9"></path></svg>
+                <span>Lägg till ny produkt</span>
               </button>
             </div>
 
-            <!-- Bottle Deposit (Pant) metadata rule card -->
-            <div class="mx-4 p-3 bg-amber-50 border border-amber-500/20 rounded-xl space-y-1 font-sans">
-              <div class="flex items-center justify-between text-xs">
-                <span class="text-amber-800 font-bold flex items-center gap-1">
+            <!-- Meta / Pant Info -->
+            <div class="p-3 bg-amber-50/70 border border-amber-200 rounded-2xl space-y-1 font-sans">
+              <div class="flex items-center justify-between text-xs font-mono">
+                <span class="text-amber-800 font-bold flex items-center space-x-1">
                   <svg class="w-3.5 h-3.5 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  Bortrensad flaskpant (Metadata)
+                  <span>Bortsorterad Flaskpant (Metadata)</span>
                 </span>
-                <span id="receipt-pant-val" class="font-mono font-bold text-amber-800">
-                  +0.80 €
-                </span>
+                <span class="font-bold text-amber-800" id="receipt-pant-display">+0.80 €</span>
               </div>
-              <p class="text-[10px] text-slate-600 leading-normal">
-                Pant (flaskpant) har rensats från artikellistan och märkts separat för att förhindra felaktiga prishöjningar i produktstatistiken.
+              <p class="text-[10px] text-slate-600 leading-normal font-sans">
+                Pant och flaskavgifter rensas automatiskt från produktlistan för att skydda din prishistorik mot dolda avgifter.
               </p>
             </div>
 
-            <!-- Receipt Totals Footer -->
-            <div class="p-4 bg-slate-50/80 border-t border-dashed border-slate-200 space-y-2 mt-2">
+            <!-- Receipt Totals Summary -->
+            <div class="p-4 bg-slate-50/80 border-t border-dashed border-slate-200 space-y-1.5 pt-3">
               <div class="flex justify-between text-[11px] text-slate-500">
                 <span>Bruttototal (ink. pant):</span>
-                <span id="receipt-brutto-val">29.26 €</span>
+                <span id="total-gross-display">0.00 €</span>
               </div>
-              
               <div class="flex justify-between text-[11px] text-slate-500">
-                <span>Totalt sparade rabatter:</span>
-                <span id="receipt-discount-val" class="text-amber-600 font-bold">-3.00 €</span>
+                <span>Pantavdrag totalt:</span>
+                <span id="total-pant-deduct-display">-0.00 €</span>
               </div>
-
-              <div class="border-t border-dashed border-slate-200 my-2 pt-2.5 flex justify-between items-baseline font-sans">
-                <span class="text-xs font-bold text-slate-900">Nettototal (till Firebase):</span>
-                <span id="receipt-total-val" class="text-xl font-mono font-black text-slate-900 tracking-tight">28.46 €</span>
+              <div class="border-t border-dashed border-slate-200 my-2 pt-2 flex justify-between items-baseline font-sans">
+                <span class="text-xs font-black text-slate-900 uppercase">Nettototal (till Firebase):</span>
+                <span class="text-lg font-mono font-black text-slate-900 tracking-tight" id="total-net-display">0.00 €</span>
               </div>
             </div>
 
           </div>
-
-          <!-- Bottom Actions -->
-          <div class="grid grid-cols-2 gap-3">
-            <button
-              onclick="resetToScanTab()"
-              class="py-3 bg-[#1A2333] border border-slate-800 hover:bg-[#252E42] rounded-2xl text-xs font-bold text-slate-300 transition cursor-pointer"
-            >
-              Skanna nytt kvitto
-            </button>
-            <button
-              onclick="saveToFirebaseMock()"
-              class="py-3 bg-sky-600 hover:bg-sky-500 text-white rounded-2xl text-xs font-bold transition shadow-lg shadow-sky-950/40 flex items-center justify-center gap-1.5 cursor-pointer"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-              Spara i Firebase
-            </button>
-          </div>
-
         </div>
 
+        <!-- Receipt Action Operations -->
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="showTab('ingest')" class="py-3 bg-[#1A2333] border border-slate-800 hover:bg-[#222E42] rounded-2xl text-xs font-bold text-slate-300 transition-colors cursor-pointer">
+            Skanna nytt kvitto
+          </button>
+          <button onclick="commitReceiptToFirebase()" class="py-3 bg-sky-600 hover:bg-sky-500 text-white rounded-2xl text-xs font-bold transition-all shadow-lg shadow-sky-950/40 flex items-center justify-center space-x-1.5 cursor-pointer">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+            <span>Spara i Firebase</span>
+          </button>
+        </div>
       </section>
 
-      <!-- ========================================================= -->
-      <!-- TAB 3: PRISHISTORIK & SÖK (DASHBOARD)                     -->
-      <!-- ========================================================= -->
-      <section id="view-history" class="hidden space-y-4">
-        
+      <!-- ================== SECTION 3: DASHBOARD & HISTORY ================== -->
+      <section id="view-dashboard" class="hidden space-y-4 animate-fade">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold font-display text-white">Produkthistorik</h2>
+          <span class="text-[10px] text-slate-400 font-mono tracking-wider bg-slate-800/40 px-2.5 py-1 rounded-full border border-slate-800" id="cached-count-badge">
+            0 Produkter cacheade
+          </span>
+        </div>
+
         <!-- Search Bar -->
         <div class="relative">
           <svg class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 transform -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-          <input
-            type="text"
-            id="history-search"
-            oninput="handleSearch(event)"
-            placeholder="Sök bland historiska artiklar..."
-            class="w-full bg-[#1A2333] border border-slate-800 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500/80 transition-all placeholder-slate-500"
-          >
+          <input type="text" id="product-search-input" onkeyup="filterCachedProducts()" placeholder="Sök bland historiska artiklar..." class="w-full bg-[#1A2333] border border-slate-800 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-amber-500/80 transition-all placeholder-slate-500" />
         </div>
 
-        <!-- Layout Split: History item list above, visual chart below -->
+        <!-- Layout splits: Left list / Right trend details -->
         <div class="space-y-4">
-          
-          <!-- Horizontal List of Logged products -->
-          <div class="bg-[#1A2333] border border-slate-800 rounded-2xl p-4 shadow-lg">
-            <h3 class="text-xs font-bold font-display uppercase tracking-wider text-slate-400 mb-3 flex items-center justify-between">
-              <span>Identifierade varor över tid</span>
-              <span id="history-count-badge" class="text-[10px] text-slate-500 normal-case font-mono">5 resultat</span>
+          <div class="bg-[#1A2333] border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+            <h3 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex justify-between">
+              <span>Varukatalog</span>
+              <span class="text-[9px] text-slate-500 font-normal">Klicka på en produkt för prisgraf</span>
             </h3>
 
-            <div id="historical-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
-              <!-- Rendered programmatically -->
+            <!-- Dynamic Product List from cache -->
+            <div id="history-product-list" class="space-y-1.5 max-h-56 overflow-y-auto pr-1">
+              <!-- Rendered items container -->
             </div>
           </div>
 
-          <!-- Dynamic Pure CSS/HTML Graph Trend Panel -->
-          <div id="chart-panel" class="bg-[#1A2333] border border-slate-800 rounded-2xl p-4 shadow-xl space-y-4 relative overflow-hidden">
+          <!-- Product Detailed Price Graph (Pure CSS / Flexbox) -->
+          <div id="trend-details-container" class="hidden bg-[#1A2333] border border-slate-800 rounded-2xl p-4 shadow-xl space-y-4 relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl"></div>
-            
-            <!-- Graph Title -->
+
             <div class="flex justify-between items-start">
               <div>
-                <span id="chart-category" class="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20">
-                  Ost & Mejeri
-                </span>
-                <h3 id="chart-title" class="font-display font-bold text-white text-base tracking-tight mt-1.5 font-sans">
-                  Edam Viipale 16% 500g
-                </h3>
-                <p class="text-[11px] text-slate-400 font-sans">
-                  Prishistorik & kampanjavstämning
-                </p>
+                <span class="px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20 inline-block font-mono" id="trend-category-badge">Varukategori</span>
+                <h3 class="font-display font-bold text-white text-sm tracking-tight mt-1.5" id="trend-product-name">Banaani Chiquita</h3>
+                <p class="text-[10px] text-slate-400 font-sans">Prisutveckling över zeit och butiksjämförelser</p>
               </div>
-
-              <!-- Stat bubble -->
               <div class="text-right">
-                <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Nuvarande</span>
-                <span id="chart-current-price" class="text-lg font-mono font-black text-amber-500">
-                  3.45 €
-                </span>
+                <span class="text-[10px] text-slate-500 uppercase font-mono block">Aktuellt Pris</span>
+                <span class="text-base font-mono font-black text-amber-500" id="trend-latest-price">1.89 €</span>
               </div>
             </div>
 
-            <!-- Graph Area -->
-            <div class="pt-4 pb-2 font-mono">
-              <div id="chart-bars-container" class="h-28 flex items-end justify-between gap-2 px-2 border-b border-slate-800 relative">
-                <!-- Programmatic chart bars injected here -->
+            <!-- Custom pure CSS bar graph -->
+            <div class="pt-4 pb-2">
+              <div class="h-28 flex items-end justify-between gap-1 px-1 border-b border-slate-800 relative" id="trend-graph-bars">
+                <!-- Bars injected here dynamically -->
               </div>
             </div>
 
-            <!-- Insights / Analysis Box -->
-            <div class="p-3 bg-[#0B1221]/60 border border-slate-800 rounded-xl flex items-start gap-2.5">
-              <svg class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-              <div class="text-[11px] text-slate-300 space-y-0.5 font-sans">
-                <p class="font-semibold text-white">Insiktsanalys:</p>
-                <p id="chart-insight-text" class="text-slate-400 leading-normal">
-                  Klicka på en produkt ovan för att granska prisutveckling och kampanjer.
+            <!-- AI Insight box -->
+            <div class="p-3 bg-[#0B1221]/60 border border-slate-800 rounded-xl flex items-start space-x-2.5 font-sans">
+              <svg class="w-4 h-4 text-amber-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              <div class="text-[11px] text-slate-300 space-y-0.5">
+                <p class="font-bold text-white">Parser-analys:</p>
+                <p class="text-slate-400 leading-normal" id="trend-insight-text">
+                  Inget datapunkt tillgängligt. Sök eller skanna ett kvitto för att rita upp prishistorik.
                 </p>
               </div>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
     </main>
 
-    <!-- --- Page Footer with simulated diagnostics --- -->
-    <footer class="mt-auto h-8 bg-slate-950 border-t border-slate-900 flex items-center justify-between px-6 text-[9px] text-slate-500 tracking-widest uppercase font-bold shrink-0">
-      <div>KVITTOANALYS AI v4.0.2</div>
+    <!-- Footer System Status metadata -->
+    <footer class="h-8 bg-[#090F1B] border-t border-slate-800/80 flex items-center justify-between px-6 text-[9px] text-slate-500 tracking-wider font-mono uppercase shrink-0 z-10 relative">
+      <div>KvittoAnalys AI v4.2</div>
       <div class="flex space-x-4">
-        <span>API: 120ms</span>
-        <span>DB: 18ms</span>
-        <span class="text-amber-500">ACTIVE SESSION</span>
+        <span class="text-amber-500/80">Active Session</span>
       </div>
     </footer>
 
-    <!-- ========================================================= -->
-    <!-- JAVASCRIPT SIMULATOR LOGIC                                 -->
-    <!-- ========================================================= -->
+    <!-- INTERACTIVE JAVASCRIPT ENGINE -->
     <script>
-      // --- Data Models ---
+      // ==========================================
+      // --- CONFIGURATION PLATFORM CONSTANTS -----
+      // ==========================================
+      const GEMINI_API_KEY = "YOUR_API_KEY"; // Fyll i din faktiska nyckel för Google AI Studio
       
-      let activeReceipt = null;
-      let editingItemIndex = null;
-      let searchQuery = "";
-      let selectedProductIndex = 0;
-
-      // Authentic hardcoded receipt payload from S-Market Perniö
-      const AUTHENTIC_RECEIPT = {
-        storeName: "S-Market Perniö",
-        date: "2026-06-30",
-        time: "14:22",
-        address: "Salontie 1, 25500 Perniö",
-        items: [
-          { id: "item-1", name: "Sitrus 1,5L", quantity: 2, unitPrice: 1.95, total: 3.90, discount: 0 },
-          { id: "item-2", name: "Edam Viipale 16% 500g", quantity: 1, unitPrice: 4.45, total: 3.45, discount: -1.00 },
-          { id: "item-3", name: "Banaani Chiquita", quantity: 1.2, unitPrice: 1.89, total: 2.27, discount: 0 },
-          { id: "item-4", name: "Kaurajuoma Barista 1L", quantity: 3, unitPrice: 2.15, total: 6.45, discount: 0 },
-          { id: "item-5", name: "Ruisleipä 6kpl", quantity: 1, unitPrice: 2.49, total: 2.49, discount: 0 },
-          { id: "item-6", name: "Lohi Fileepala 600g", quantity: 1, unitPrice: 11.90, total: 9.90, discount: -2.00 }
-        ],
-        metadata: {
-          pant: 0.80, // removed from list
-          originalDiscount: -3.00,
-          savedPath: "days/2026-06-30"
-        },
-        total: 28.46
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT.firebaseapp.com",
+        databaseURL: "https://YOUR-DB-europe-west1.firebasedatabase.app", // Skriv in europe-west1 URL
+        projectId: "YOUR_PROJECT",
+        storageBucket: "YOUR_PROJECT.appspot.com",
+        messagingSenderId: "YOUR_SENDER",
+        appId: "YOUR_APP_ID"
       };
 
-      const RAW_RECEIPT_TEMPLATE = `S-MARKET PERNIÖ\nSALONTIE 1, 25500 PERNIÖ\nPuh. 010 7618400\n\nKuitti: 2026-06-30  14:22:15\nKassa: 4   Maksupääte\n\nSITRUS 1,5L (Sis. Pantti 0.40)  2 kpl x 2.35  4.70\n   *PANTTI BORTTAGEN*                         -0.80\n   SITRUS NETTO                                3.90\nEDAM VIIPALE 16% 500G                          4.45\n   KAMPANJA-ALENNUS                           -1.00\nBANAANI CHIQUITA                1.20 kg x 1.89  2.27\nKAURAJUOMA BARISTA 1L           3 kpl x 2.15   6.45\nRUISLEIPÄ 6KPL                                 2.49\nLOHI FILEEPALA 600G                           11.90\n   KAMPANJA-ALENNUS                           -2.00\nPANTIT YHTEENSÄ (Pullo 0.40 x 2)               0.80\n\nYHTEENSÄ                                      29.26 €\nVarav panteista (bortrensad fr. varor)         0.80 €\nTOTAL NETTO (Sparad till Firebase)            28.46 €`;
+      // ==========================================
+      // --- GLOBAL STATE ENGINE VARIABLES --------
+      // ==========================================
+      let activeTab = "ingest";
+      let database = null;
+      let firebaseInitialized = false;
+      let currentReceipt = null;
 
-      // Pre-baked historical values representing trends
-      const HISTORICAL_PRODUCTS = [
-        {
-          name: "Edam Viipale 16% 500g",
+      // Authentic Pre-baked Receipt details for testing (2026-06-30 S-Market Perniö)
+      const AUTHENTIC_TEST_RECEIPT_TEXT = `S-MARKET PERNIÖ
+SALONTIE 1, 25500 PERNIÖ
+Puh. 010 7618400
+
+Kuitti: 2026-06-30  14:22:15
+Kassa: 4   Maksupääte
+
+SITRUS 1,5L (Sis. Pantti 0.40)  2 kpl x 2.35  4.70
+   *PANTTI BORTTAGEN*                         -0.80
+   SITRUS NETTO                                3.90
+EDAM VIIPALE 16% 500G                          4.45
+   KAMPANJA-ALENNUS                           -1.00
+BANAANI CHIQUITA                1.20 kg x 1.89  2.27
+KAURAJUOMA BARISTA 1L           3 kpl x 2.15   6.45
+RUISLEIPÄ 6KPL                                 2.49
+LOHI FILEEPALA 600G                           11.90
+   KAMPANJA-ALENNUS                           -2.00
+PANTIT YHTEENSÄ (Pullo 0.40 x 2)               0.80
+
+YHTEENSÄ                                      29.26 €
+Varav panteista (bortrensad fr. varor)         0.80 €
+TOTAL NETTO (Sparad till Firebase)            28.46 €`;
+
+      // Prebaked static catalog seeds to ensure history tab is filled on first load
+      const DEFAULT_PRODUCT_SEEDS = {
+        "Edam Viipale 16%": {
+          name: "Edam Viipale 16%",
           category: "Mejeri & Ost",
           currentPrice: 3.45,
           history: [
@@ -557,10 +450,10 @@
             { date: "2026-04-22", price: 4.75, store: "S-Market Perniö" },
             { date: "2026-05-10", price: 4.45, store: "S-Market Perniö" },
             { date: "2026-06-12", price: 4.45, store: "Lidl Salo" },
-            { date: "2026-06-30", price: 3.45, isDiscount: true, store: "S-Market Perniö" }
+            { date: "2026-06-30", price: 3.45, store: "S-Market Perniö", isDiscount: true }
           ]
         },
-        {
+        "Sitrus 1,5L": {
           name: "Sitrus 1,5L",
           category: "Drycker",
           currentPrice: 1.95,
@@ -571,7 +464,7 @@
             { date: "2026-06-30", price: 1.95, store: "S-Market Perniö" }
           ]
         },
-        {
+        "Kaurajuoma Barista 1L": {
           name: "Kaurajuoma Barista 1L",
           category: "Växtbaserat",
           currentPrice: 2.15,
@@ -582,492 +475,594 @@
             { date: "2026-06-30", price: 2.15, store: "S-Market Perniö" }
           ]
         },
-        {
+        "Banaani Chiquita": {
           name: "Banaani Chiquita",
           category: "Frukt & Grönt",
           currentPrice: 1.89,
           history: [
-            { date: "2026-03-15", price: 1.95, store: "S-Market" },
-            { date: "2026-04-22", price: 1.95, store: "S-Market" },
-            { date: "2026-05-10", price: 1.89, store: "K-Supermarket" },
-            { date: "2026-06-30", price: 1.89, store: "S-Market" }
-          ]
-        },
-        {
-          name: "Lohi Fileepala 600g",
-          category: "Fisk & Skaldjur",
-          currentPrice: 9.90,
-          history: [
-            { date: "2026-03-15", price: 12.50, store: "S-Market Perniö" },
-            { date: "2026-04-22", price: 11.90, store: "K-Supermarket" },
-            { date: "2026-05-10", price: 11.90, store: "S-Market" },
-            { date: "2026-06-30", price: 9.90, isDiscount: true, store: "S-Market Perniö" }
+            { date: "2026-03-15", price: 1.95, store: "S-Market Perniö" },
+            { date: "2026-04-22", price: 1.95, store: "S-Market Perniö" },
+            { date: "2026-05-10", price: 1.89, store: "K-Supermarket Perniö" },
+            { date: "2026-06-30", price: 1.89, store: "S-Market Perniö" }
           ]
         }
-      ];
+      };
 
-      const LOADING_STEPS = [
-        "Ansluter till Gemini Ultra 2.5 API...",
-        "Analyserar bildstrukturen och segmenterar rader...",
-        "Identifierar butik: S-Market Perniö & datum 2026-06-30...",
-        "Extraherar momskategorier och pantbelopp...",
-        "Rensar pant (0.80 €) och formaterar nettovarupriser...",
-        "Slutför Firebase-synk till days/2026-06-30..."
-      ];
-
-      // --- Initialization ---
+      // ==========================================
+      // --- SYSTEM INITIALIZATION SETUP ----------
+      // ==========================================
       window.addEventListener("DOMContentLoaded", () => {
-        renderHistoryProducts();
-        renderChart();
+        initFirebase();
+        initProductCache();
+        renderCachedProductList();
+        checkTexareaState();
       });
 
-      // --- Navigation Switcher ---
-      function switchTab(tabId) {
-        // Toggle view containers
-        document.getElementById("view-ingest").classList.add("hidden");
-        document.getElementById("view-review").classList.add("hidden");
-        document.getElementById("view-history").classList.add("hidden");
-        document.getElementById("view-loading").classList.add("hidden");
-
-        const targetView = document.getElementById("view-" + tabId);
-        if (targetView) targetView.classList.remove("hidden");
-
-        // Toggle nav headers styling
-        const tabs = ["ingest", "review", "history"];
-        tabs.forEach(t => {
-          const btn = document.getElementById("tab-" + t);
-          if (t === tabId) {
-            btn.className = "h-16 px-1 transition-all border-b-2 border-amber-500 text-amber-500 flex items-center gap-1 cursor-pointer";
+      function initFirebase() {
+        const warningElement = document.getElementById("firebase-warning");
+        try {
+          if (firebaseConfig.databaseURL && !firebaseConfig.databaseURL.includes("YOUR-DB")) {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            firebaseInitialized = true;
+            warningElement.classList.add("hidden");
+            console.log("Firebase Realtime Database successfully loaded!");
           } else {
-            btn.className = "h-16 px-1 transition-all border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-1 cursor-pointer";
+            warningElement.classList.remove("hidden");
+            console.warn("Firebase parameters are default placeholders. Running in client simulation.");
+          }
+        } catch (err) {
+          console.error("Firebase init failed: ", err);
+          warningElement.classList.remove("hidden");
+        }
+      }
+
+      function initProductCache() {
+        // Hydrate localCache from localStorage or seeds
+        let cached = localStorage.getItem("kvitto_product_cache");
+        if (!cached) {
+          localStorage.setItem("kvitto_product_cache", JSON.stringify(DEFAULT_PRODUCT_SEEDS));
+        }
+      }
+
+      function getProductCache() {
+        try {
+          return JSON.parse(localStorage.getItem("kvitto_product_cache")) || DEFAULT_PRODUCT_SEEDS;
+        } catch (err) {
+          return DEFAULT_PRODUCT_SEEDS;
+        }
+      }
+
+      function saveProductCache(cache) {
+        localStorage.setItem("kvitto_product_cache", JSON.stringify(cache));
+      }
+
+      // ==========================================
+      // --- INTERFACE TAB / NAVIGATION ROUTER -----
+      // ==========================================
+      function showTab(tabId) {
+        activeTab = tabId;
+        
+        // Hide all views
+        document.getElementById("view-ingest").classList.add("hidden");
+        document.getElementById("view-analysis-waiting").classList.add("hidden");
+        document.getElementById("view-review").classList.add("hidden");
+        document.getElementById("view-dashboard").classList.add("hidden");
+
+        // Show selected view
+        document.getElementById("view-" + tabId).classList.remove("hidden");
+
+        // Styling tab controls
+        const tabs = ["ingest", "review", "dashboard"];
+        tabs.forEach(t => {
+          const btn = document.getElementById("btn-" + t);
+          if (t === tabId) {
+            btn.className = "text-amber-500 border-b-2 border-amber-500 h-16 px-1 transition-colors flex items-center space-x-1 cursor-pointer font-bold";
+          } else {
+            btn.className = "text-slate-400 hover:text-white border-b-2 border-transparent h-16 px-1 transition-colors flex items-center space-x-1 cursor-pointer";
           }
         });
 
-        // Specific sub-state triggers on tab switch
-        if (tabId === "review") {
-          updateReviewTabContent();
-        } else if (tabId === "history") {
-          renderHistoryProducts();
-          renderChart();
+        // Trigger updates depending on views
+        if (tabId === "dashboard") {
+          renderCachedProductList();
         }
       }
 
-      // --- Tab 1 Ingestion Logic ---
-      function triggerFileSelect() {
-        document.getElementById("file-input").click();
+      // ==========================================
+      // --- INGEST / INTAKE UTILITIES ------------
+      // ==========================================
+      function checkTexareaState() {
+        const txt = document.getElementById("raw-receipt-text").value;
+        const helper = document.getElementById("textarea-placeholder-helper");
+        if (txt && txt.trim().length > 0) {
+          helper.classList.add("hidden");
+        } else {
+          helper.classList.remove("hidden");
+        }
       }
 
+      document.getElementById("raw-receipt-text").addEventListener("input", checkTexareaState);
+
+      function loadSampleReceipt(e) {
+        if(e) e.stopPropagation();
+        document.getElementById("raw-receipt-text").value = AUTHENTIC_TEST_RECEIPT_TEXT;
+        checkTexareaState();
+        showToast("Testkvitto laddat", "Klicka på 'Starta AI Analys' för att köra Gemini-motorn.");
+      }
+
+      // Clears inputs
+      function clearText() {
+        document.getElementById("raw-receipt-text").value = "";
+        document.getElementById("file-picker").value = "";
+        
+        // Reset file drops
+        document.getElementById("upload-title").innerText = "Släpp kvittofil eller klicka";
+        document.getElementById("upload-desc").innerText = "Stöder PDF-kvitton, skärmdumpar eller foton.";
+        document.getElementById("upload-icon-container").className = "w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-3";
+
+        checkTexareaState();
+      }
+
+      // File upload handler
       function handleFileSelected(event) {
         if (event.target.files && event.target.files[0]) {
           const file = event.target.files[0];
           
-          // Modify dropzone aesthetics to show loaded status
-          const dropzone = document.getElementById("dropzone");
-          dropzone.className = "border-2 border-dashed border-emerald-500/40 bg-emerald-950/5 rounded-2xl p-8 text-center cursor-pointer transition-all";
+          document.getElementById("upload-title").innerText = file.name;
+          document.getElementById("upload-desc").innerText = `Filsortering färdig (${(file.size / 1024).toFixed(1)} kB). Klar att skannas.`;
+          document.getElementById("upload-icon-container").className = "w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3";
           
-          document.getElementById("dropzone-icon").className = "w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3";
-          document.getElementById("dropzone-text").innerText = file.name;
-          document.getElementById("dropzone-text").className = "font-medium text-emerald-300 text-sm mb-1 truncate max-w-[280px]";
-          document.getElementById("dropzone-subtext").innerText = "Klar att analyseras. Klicka för att byta.";
-
-          // Auto-fill raw-text with label as file reference and enable analyze button
-          document.getElementById("raw-text").value = `// Analyserar kvitto-fil: ${file.name}\n${RAW_RECEIPT_TEMPLATE}`;
-          handleTextareaInput();
-        }
-      }
-
-      function handleTextareaInput() {
-        const value = document.getElementById("raw-text").value;
-        const btnClear = document.getElementById("btn-clear-text");
-        const btnAnalyze = document.getElementById("btn-analyze");
-        const placeholder = document.getElementById("paste-placeholder");
-
-        if (value.trim() !== "") {
-          btnClear.classList.remove("hidden");
-          placeholder.classList.add("hidden");
-          btnAnalyze.removeAttribute("disabled");
-          btnAnalyze.className = "w-full py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all shadow-lg flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-500 text-white cursor-pointer hover:scale-[1.01] shadow-sky-950/40";
-        } else {
-          btnClear.classList.add("hidden");
-          placeholder.classList.remove("hidden");
-          btnAnalyze.setAttribute("disabled", "true");
-          btnAnalyze.className = "w-full py-3.5 rounded-2xl text-xs font-bold tracking-wide transition-all shadow-lg flex items-center justify-center gap-2 bg-slate-800/80 text-slate-500 cursor-not-allowed";
-        }
-      }
-
-      function clearRawText() {
-        document.getElementById("raw-text").value = "";
-        
-        // Reset dropzone state
-        const dropzone = document.getElementById("dropzone");
-        dropzone.className = "border-2 border-dashed border-slate-800 bg-[#1A2333] rounded-2xl p-8 text-center cursor-pointer transition-all hover:border-slate-700 hover:bg-[#1A2333]/90";
-        document.getElementById("dropzone-icon").className = "w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-3";
-        document.getElementById("dropzone-text").innerText = "Bläddra eller släpp kvittofil";
-        document.getElementById("dropzone-text").className = "font-medium text-white text-sm mb-1";
-        document.getElementById("dropzone-subtext").innerText = "Stöder PDF-kvitton, bilder (Kivra-skärmdumpar) eller foton.";
-        
-        handleTextareaInput();
-      }
-
-      function useMockReceiptTemplate() {
-        document.getElementById("raw-text").value = RAW_RECEIPT_TEMPLATE;
-        handleTextareaInput();
-      }
-
-      // --- Loading Simulation Engine ---
-      function simulateAnalysis() {
-        document.getElementById("view-ingest").classList.add("hidden");
-        document.getElementById("view-loading").classList.remove("hidden");
-        
-        const logsContainer = document.getElementById("loading-logs-container");
-        logsContainer.innerHTML = "";
-        
-        let stepIndex = 0;
-        
-        function appendNextStep() {
-          if (stepIndex < LOADING_STEPS.length) {
-            // Mark previously appended logs as successfully completed
-            const previousLogs = logsContainer.querySelectorAll(".log-row");
-            previousLogs.forEach(row => {
-              row.className = "log-row flex items-center gap-2 text-amber-500";
-              const circle = row.querySelector(".status-circle");
-              if (circle) circle.innerHTML = `<svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
-            });
-
-            // Append new active log
-            const row = document.createElement("div");
-            row.className = "log-row flex items-center gap-2 text-sky-400 font-bold";
-            row.innerHTML = `
-              <span class="status-circle shrink-0">
-                <svg class="w-3.5 h-3.5 shrink-0 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18"></path></svg>
-              </span>
-              <span>${LOADING_STEPS[stepIndex]}</span>
-            `;
-            logsContainer.appendChild(row);
-            logsContainer.scrollTop = logsContainer.scrollHeight;
-
-            stepIndex++;
-            setTimeout(appendNextStep, 380);
-          } else {
-            // Finished! Inject data object and swap to review tab
-            activeReceipt = JSON.parse(JSON.stringify(AUTHENTIC_RECEIPT));
-            editingItemIndex = null;
-            setTimeout(() => {
-              switchTab("review");
-              showToastNotice();
-            }, 300);
+          // Auto fill draft text if empty
+          const textInput = document.getElementById("raw-receipt-text");
+          if (!textInput.value || textInput.value.trim().length === 0) {
+            textInput.value = `[Inscannad Fil: ${file.name}]\n\n` + AUTHENTIC_TEST_RECEIPT_TEXT;
           }
+          checkTexareaState();
+          showToast("Kvitto uppladdat", "Klar att analyseras med Google Gemini.");
         }
-
-        appendNextStep();
       }
 
-      // --- Toast Notifications ---
-      function showToastNotice() {
-        const toast = document.getElementById("firebase-toast");
-        toast.classList.remove("hidden");
-        setTimeout(() => {
-          toast.classList.add("hidden");
-        }, 3500);
-      }
+      // Drag and Drop listeners
+      const dropZone = document.getElementById("drop-zone");
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("border-amber-500", "bg-amber-950/15");
+      });
+      dropZone.addEventListener("dragleave", () => {
+        dropZone.classList.remove("border-amber-500", "bg-amber-950/15");
+      });
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("border-amber-500", "bg-amber-950/15");
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          const file = e.dataTransfer.files[0];
+          document.getElementById("file-picker").files = e.dataTransfer.files;
+          
+          const fakeEvent = { target: { files: e.dataTransfer.files } };
+          handleFileSelected(fakeEvent);
+        }
+      });
 
-      // --- Tab 2: Review & Edit Logic ---
-      function updateReviewTabContent() {
-        const noReceipt = document.getElementById("no-receipt-container");
-        const withReceipt = document.getElementById("receipt-present-container");
-
-        if (!activeReceipt) {
-          noReceipt.classList.remove("hidden");
-          withReceipt.classList.add("hidden");
+      // ==========================================
+      // --- GEMINI REST API INTEGRATION FLOW -----
+      // ==========================================
+      async function startReceiptAnalysis() {
+        const textValue = document.getElementById("raw-receipt-text").value;
+        if (!textValue || textValue.trim().length === 0) {
+          showToast("Analys misslyckades", "Vänligen klistra in kvitto-text först.", true);
           return;
         }
 
-        noReceipt.classList.add("hidden");
-        withReceipt.classList.remove("hidden");
+        // 1. Transition into loading view
+        showTab("analysis-waiting");
+        
+        // 2. Animate step indicators sequentially
+        setAnalysisStep(1, "running");
+        
+        // Check API key configuration. Fallback to offline simulation if placeholder
+        if (GEMINI_API_KEY === "YOUR_API_KEY") {
+          setTimeout(() => setAnalysisStep(1, "success"), 400);
+          setTimeout(() => setAnalysisStep(2, "running"), 450);
+          setTimeout(() => setAnalysisStep(2, "success"), 800);
+          setTimeout(() => setAnalysisStep(3, "running"), 850);
+          setTimeout(() => setAnalysisStep(3, "success"), 1200);
+          setTimeout(() => setAnalysisStep(4, "running"), 1250);
+          setTimeout(() => setAnalysisStep(4, "success"), 1600);
+          setTimeout(() => setAnalysisStep(5, "running"), 1650);
+          
+          setTimeout(() => {
+            setAnalysisStep(5, "success");
+            // Hydrate simulated test receipt
+            const simulatedResponse = {
+              store: "S-Market Perniö",
+              address: "Salontie 1, Perniö",
+              date: "2026-06-30",
+              time: "14:22",
+              total: 28.46,
+              pant_total: 0.80,
+              items: [
+                { name: "Sitrus 1,5L", qty: 2, unit_price: 1.95, total_price: 3.90 },
+                { name: "Edam Viipale 16% 500g", qty: 1, unit_price: 4.45, total_price: 3.45 },
+                { name: "Banaani Chiquita", qty: 1.2, unit_price: 1.89, total_price: 2.27 },
+                { name: "Kaurajuoma Barista 1L", qty: 3, unit_price: 2.15, total_price: 6.45 },
+                { name: "Ruisleipä 6kpl", qty: 1, unit_price: 2.49, total_price: 2.49 },
+                { name: "Lohi Fileepala 600g", qty: 1, unit_price: 11.90, total_price: 9.90 }
+              ]
+            };
+            loadReceiptIntoReview(simulatedResponse);
+            showToast("Analys slutförd (Simulering)", "Gemini-simulering färdig. Kontrollera och spara.");
+          }, 2000);
+          return;
+        }
 
-        // Bind metadata
-        document.getElementById("receipt-store-name").innerText = activeReceipt.storeName;
-        document.getElementById("receipt-address").innerHTML = `<svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> ` + activeReceipt.address;
-        document.getElementById("receipt-date").innerHTML = `<svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> ` + activeReceipt.date;
-        document.getElementById("receipt-time").innerHTML = `<svg class="w-3 h-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ` + activeReceipt.time;
-        document.getElementById("receipt-saved-path").innerHTML = activeReceipt.metadata.savedPath + `<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>`;
+        // --- SKARPT GEMINI ANROP ---
+        try {
+          const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+          
+          setAnalysisStep(1, "success");
+          setAnalysisStep(2, "running");
 
-        // Render dynamic table items
-        rebuildReceiptItemsTable();
+          const promptInstructions = `Du är en expert på kvittoanalys för nordiska kvitton (speciellt finska och svenska butiker).
+Din uppgift är att analysera den råa texten från ett butikskvitto och returnera ett strukturerat JSON-svar.
+
+Följ dessa exakta affärsregler för datatransformation:
+1. Identifiera de exakta butiksnamnen (t.ex. "S-Market Perniö") och butiksaddressen.
+2. Extrahera datumet (YYYY-MM-DD format) och klockslag (HH:MM format). Om saknas, använd dagens datum: 2026-06-30.
+3. Radrensning av PANT/PULLOPANTTI: Sortera bort pantlinjer (t.ex. "SITRUS Sis. Pantti 0.40" eller rader märkta "Pullo" / "PANTTI") från produktlistan. Räkna istället ihop all pant till en gemensam klumpsumma i "pant_total".
+4. Kampanjpriser och rabatter: Om en produkt har ett kampanjavdrag (t.ex. "KAMPANJA-ALENNUS" eller "RABATT"), dra av alennus-summan från produktens totalpris så att "total_price" reflekterar det faktiska nettopriset efter rabatter. Räkna även ut "unit_price" som faktiskt slutligt enhetspris (total_price delat på qty).
+5. Normalisera och snygga till produktnamnen. Skriv i "Title Case" och ta bort fula oregelbundna tecken (t.ex. "EDAM VIIPALE 16% 500G" blir "Edam Viipale 16% 500g"). Ta bort eventuell pant-text som ingår i produktnamnet.
+6. Räkna ut "total" som summan av alla korrigerade produktlinjer (exklusive pant).`;
+
+          const responseSchema = {
+            type: "OBJECT",
+            properties: {
+              store: { type: "STRING" },
+              address: { type: "STRING" },
+              date: { type: "STRING" },
+              time: { type: "STRING" },
+              total: { type: "NUMBER" },
+              pant_total: { type: "NUMBER" },
+              items: {
+                type: "ARRAY",
+                items: {
+                  type: "OBJECT",
+                  properties: {
+                    name: { type: "STRING" },
+                    qty: { type: "NUMBER" },
+                    unit_price: { type: "NUMBER" },
+                    total_price: { type: "NUMBER" }
+                  },
+                  required: ["name", "qty", "unit_price", "total_price"]
+                }
+              }
+            },
+            required: ["store", "date", "time", "total", "pant_total", "items"]
+          };
+
+          const requestPayload = {
+            contents: [{ parts: [{ text: textValue }] }],
+            systemInstruction: { parts: [{ text: promptInstructions }] },
+            generationConfig: {
+              responseMimeType: "application/json",
+              responseSchema: responseSchema
+            }
+          };
+
+          setAnalysisStep(2, "success");
+          setAnalysisStep(3, "running");
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestPayload)
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP status: ${response.status}`);
+          }
+
+          setAnalysisStep(3, "success");
+          setAnalysisStep(4, "running");
+
+          const data = await response.json();
+          const parsedContentText = data.candidates[0].content.parts[0].text;
+          const receiptResult = JSON.parse(parsedContentText);
+
+          setAnalysisStep(4, "success");
+          setAnalysisStep(5, "running");
+
+          // Standardize undefined values
+          if (!receiptResult.pant_total) receiptResult.pant_total = 0;
+          if (!receiptResult.address) receiptResult.address = "Okänd Adress";
+
+          setTimeout(() => {
+            setAnalysisStep(5, "success");
+            loadReceiptIntoReview(receiptResult);
+            showToast("Skannad med Gemini AI Pro", "Kvittodata framgångsrikt extraherat och formaterat.");
+          }, 600);
+
+        } catch (error) {
+          console.error("Gemini API Error: ", error);
+          showToast("Analysfel", "Det gick inte att ansluta till Gemini API. Kontrollera din nätverksanslutning och API-nyckel.", true);
+          showTab("ingest");
+        }
       }
 
-      function rebuildReceiptItemsTable() {
+      function setAnalysisStep(stepNum, status) {
+        const stepEl = document.getElementById(`log-step-${stepNum}`);
+        if (!stepEl) return;
+        
+        const iconEl = stepEl.querySelector(".step-icon");
+        
+        if (status === "running") {
+          stepEl.className = "text-amber-500 font-bold flex items-center space-x-2 animate-pulse";
+          iconEl.innerHTML = '<span class="inline-block w-2.5 h-2.5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></span>';
+        } else if (status === "success") {
+          stepEl.className = "text-sky-400 flex items-center space-x-2 transition-all duration-300";
+          iconEl.innerHTML = '<svg class="w-3.5 h-3.5 text-sky-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+        } else {
+          stepEl.className = "text-slate-600 flex items-center space-x-2";
+          iconEl.innerText = "○";
+        }
+      }
+
+      // ==========================================
+      // --- REVIEW / GRANSKA RENDER-ENGINE -------
+      // ==========================================
+      function loadReceiptIntoReview(receiptData) {
+        currentReceipt = receiptData;
+        showTab("review");
+        
+        // Render headers
+        document.getElementById("receipt-store-name").innerText = receiptData.store;
+        document.getElementById("receipt-store-address").innerText = receiptData.address || "Salontie 1, Perniö";
+        document.getElementById("receipt-date-display").innerText = receiptData.date;
+        document.getElementById("receipt-time-display").innerText = receiptData.time;
+        document.getElementById("review-db-path").innerText = `days/${receiptData.date}/receipts`;
+
+        // Reset unsaved status badge
+        const badge = document.getElementById("badge-saved-status");
+        badge.innerText = "Osparad";
+        badge.className = "px-2.5 py-1 rounded-full text-[9px] font-bold bg-slate-800 text-slate-400 border border-slate-700 uppercase";
+
+        renderReceiptReviewTable();
+      }
+
+      function renderReceiptReviewTable() {
         const container = document.getElementById("receipt-items-container");
         container.innerHTML = "";
 
-        activeReceipt.items.forEach((item, index) => {
-          const isEditing = editingItemIndex === index;
-          const row = document.createElement("div");
-          
-          row.className = `p-2 rounded-xl transition-all ${
-            isEditing 
-              ? "bg-slate-100 border border-slate-300 ring-1 ring-slate-200" 
-              : "hover:bg-slate-50 border border-transparent"
-          }`;
-
-          if (isEditing) {
-            // Inline Active Form
-            row.innerHTML = `
-              <div class="space-y-2 font-sans">
-                <div class="flex gap-2">
-                  <input
-                    type="text"
-                    value="${item.name}"
-                    onchange="updateItemField(${index}, 'name', this.value)"
-                    class="bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 flex-1 focus:outline-none focus:border-amber-500"
-                    placeholder="Produktnamn"
-                  >
-                  <button
-                    onclick="deleteReceiptItem(${index})"
-                    class="p-1.5 bg-red-50 border border-red-200 text-red-600 hover:bg-red-100 rounded transition cursor-pointer"
-                    title="Ta bort produkt"
-                  >
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                  </button>
-                </div>
-                
-                <div class="grid grid-cols-3 gap-2 text-xs">
-                  <div>
-                    <label class="text-[9px] text-slate-500 block mb-0.5">Kvantitet</label>
-                    <input
-                      type="number"
-                      step="any"
-                      value="${item.quantity}"
-                      oninput="updateItemField(${index}, 'quantity', this.value)"
-                      class="bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 w-full focus:outline-none focus:border-amber-500"
-                    >
-                  </div>
-                  <div>
-                    <label class="text-[9px] text-slate-500 block mb-0.5">Enhetspris (€)</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value="${item.unitPrice}"
-                      oninput="updateItemField(${index}, 'unitPrice', this.value)"
-                      class="bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 w-full focus:outline-none focus:border-amber-500"
-                    >
-                  </div>
-                  <div>
-                    <label class="text-[9px] text-slate-500 block mb-0.5">Rabatt (€)</label>
-                    <input
-                      type="number"
-                      step="0.01"
-                      value="${item.discount || 0}"
-                      oninput="updateItemField(${index}, 'discount', this.value)"
-                      class="bg-white border border-slate-300 rounded px-2 py-1 text-xs text-slate-900 w-full focus:outline-none focus:border-amber-500"
-                      placeholder="t.ex -1.00"
-                    >
-                  </div>
-                </div>
-
-                <div class="flex justify-end pt-1">
-                  <button
-                    onclick="closeItemInlineEditor()"
-                    class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-900 text-[11px] font-bold rounded flex items-center gap-1 shadow-sm cursor-pointer"
-                  >
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                    Klar
-                  </button>
-                </div>
-              </div>
-            `;
-          } else {
-            // Read-Only Line Item Row
-            row.innerHTML = `
-              <div class="flex items-start justify-between font-mono relative group">
-                <div class="space-y-0.5 pr-2">
-                  <div class="flex items-center gap-1.5">
-                    <span class="font-bold text-slate-900 text-xs tracking-tight">
-                      ${item.name}
-                    </span>
-                    ${item.discount < 0 ? `
-                      <span class="px-1.5 py-0.5 rounded text-[8px] font-bold bg-amber-100 text-amber-800 border border-amber-200 shrink-0 flex items-center gap-0.5 font-sans">
-                        <svg class="w-2 h-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        KAMPANJA
-                      </span>
-                    ` : ''}
-                  </div>
-                  
-                  <div class="text-[10px] text-slate-500 font-sans">
-                    ${item.quantity} ${item.quantity % 1 === 0 ? "st" : "kg"} × ${item.unitPrice.toFixed(2)} €
-                    ${item.discount < 0 ? `
-                      <span class="text-amber-600 font-bold ml-1 font-mono">
-                        (Rabatt ${item.discount.toFixed(2)} €)
-                      </span>
-                    ` : ''}
-                  </div>
-                </div>
-
-                <div class="flex items-center gap-1.5 shrink-0">
-                  <span class="text-xs font-bold text-slate-900 w-16 text-right">
-                    ${item.total.toFixed(2)} €
-                  </span>
-                  <button
-                    onclick="openItemInlineEditor(${index})"
-                    class="p-1 opacity-20 group-hover:opacity-100 text-slate-400 hover:text-slate-800 hover:bg-slate-100 rounded transition shrink-0 cursor-pointer"
-                    title="Redigera rad"
-                  >
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                  </button>
-                </div>
-              </div>
-            `;
-          }
-
-          container.appendChild(row);
-        });
-
-        // Re-calculate receipt totals dynamically
-        rebuildReceiptTotals();
-      }
-
-      function openItemInlineEditor(index) {
-        editingItemIndex = index;
-        rebuildReceiptItemsTable();
-      }
-
-      function closeItemInlineEditor() {
-        editingItemIndex = null;
-        rebuildReceiptItemsTable();
-      }
-
-      function updateItemField(index, field, val) {
-        const item = activeReceipt.items[index];
-        if (field === "name") item.name = String(val);
-        if (field === "quantity") item.quantity = Number(val);
-        if (field === "unitPrice") item.unitPrice = Number(val);
-        if (field === "discount") item.discount = Number(val);
-
-        // Recalculate rad-total
-        const discountAmount = item.discount || 0;
-        item.total = Number(((item.quantity * item.unitPrice) + discountAmount).toFixed(2));
-
-        // recalculate grand net total
-        activeReceipt.total = Number(activeReceipt.items.reduce((acc, curr) => acc + curr.total, 0).toFixed(2));
-        
-        rebuildReceiptTotals();
-      }
-
-      function deleteReceiptItem(index) {
-        activeReceipt.items.splice(index, 1);
-        editingItemIndex = null;
-        activeReceipt.total = Number(activeReceipt.items.reduce((acc, curr) => acc + curr.total, 0).toFixed(2));
-        rebuildReceiptItemsTable();
-      }
-
-      function insertNewEmptyItem() {
-        const newItem = {
-          id: "item-" + Date.now(),
-          name: "Ny produkt",
-          quantity: 1,
-          unitPrice: 1.00,
-          total: 1.00,
-          discount: 0
-        };
-        activeReceipt.items.push(newItem);
-        activeReceipt.total = Number(activeReceipt.items.reduce((acc, curr) => acc + curr.total, 0).toFixed(2));
-        editingItemIndex = activeReceipt.items.length - 1;
-        rebuildReceiptItemsTable();
-      }
-
-      function rebuildReceiptTotals() {
-        const total = activeReceipt.total;
-        const pant = activeReceipt.metadata.pant;
-        const brutto = total + pant;
-
-        document.getElementById("receipt-brutto-val").innerText = brutto.toFixed(2) + " €";
-        document.getElementById("receipt-total-val").innerText = total.toFixed(2) + " €";
-        document.getElementById("receipt-pant-val").innerText = "+" + pant.toFixed(2) + " €";
-        
-        // Sum total discounts on lines
-        let totalDiscount = 0;
-        activeReceipt.items.forEach(item => {
-          if (item.discount < 0) totalDiscount += item.discount;
-        });
-        document.getElementById("receipt-discount-val").innerText = totalDiscount.toFixed(2) + " €";
-      }
-
-      function resetToScanTab() {
-        activeReceipt = null;
-        clearRawText();
-        switchTab("ingest");
-      }
-
-      function saveToFirebaseMock() {
-        if (!activeReceipt) return;
-
-        // Propagate changes dynamically into our historical database trends
-        activeReceipt.items.forEach(item => {
-          // Find matching historical group
-          const match = HISTORICAL_PRODUCTS.find(p => item.name.toLowerCase().includes(p.name.split(" ")[0].toLowerCase()));
-          if (match) {
-            // Update the last point representing June 30 with the current modified value
-            const pointIndex = match.history.findIndex(pt => pt.date === "2026-06-30");
-            const priceVal = item.unitPrice + (item.discount ? item.discount / item.quantity : 0);
-            
-            if (pointIndex !== -1) {
-              match.history[pointIndex].price = priceVal;
-            }
-            match.currentPrice = priceVal;
-          }
-        });
-
-        // Trigger flash notification toast and navigate to history tab
-        showToastNotice();
-        setTimeout(() => {
-          switchTab("history");
-        }, 1500);
-      }
-
-      // --- Tab 3: History & Search Logic ---
-      function renderHistoryProducts() {
-        const listContainer = document.getElementById("historical-list");
-        listContainer.innerHTML = "";
-
-        // filter products by search text
-        const filtered = HISTORICAL_PRODUCTS.filter(p => 
-          p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-          p.category.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-
-        document.getElementById("history-count-badge").innerText = `${filtered.length} resultat`;
-
-        if (filtered.length === 0) {
-          listContainer.innerHTML = `<div class="text-center text-xs text-slate-500 py-6">Inga produkter matchar din sökning.</div>`;
+        if (!currentReceipt || !currentReceipt.items || currentReceipt.items.length === 0) {
+          container.innerHTML = `<p class="text-xs text-slate-400 text-center py-4 font-sans">Inga varor extraherade.</p>`;
+          recalculateReceiptSum();
           return;
         }
 
-        filtered.forEach((prod, index) => {
-          // Get correct global index reference
-          const globalIndex = HISTORICAL_PRODUCTS.findIndex(p => p.name === prod.name);
-          const isSelected = selectedProductIndex === globalIndex;
-          
+        currentReceipt.items.forEach((item, index) => {
           const row = document.createElement("div");
-          row.onclick = () => {
-            selectedProductIndex = globalIndex;
-            renderHistoryProducts();
-            renderChart();
-          };
-          
-          row.className = `p-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-between border ${
-            isSelected
-              ? "bg-[#1E2E4B] border-sky-500/30 text-white"
-              : "bg-[#0B1221] border-transparent hover:bg-slate-800/30 text-slate-300"
-          }`;
+          row.className = "p-2 rounded-xl border border-transparent hover:bg-slate-50 transition-all group flex items-start justify-between font-sans relative";
+          row.innerHTML = `
+            <div class="space-y-1 pr-3 flex-1">
+              <input type="text" value="${item.name}" onchange="updateReviewItemField(${index}, 'name', this.value)" class="bg-transparent border-b border-transparent hover:border-slate-300 focus:border-amber-500 focus:outline-none text-xs font-bold text-slate-800 w-full font-mono py-0.5" />
+              <div class="text-[10px] text-slate-500 flex items-center space-x-1.5 font-sans">
+                <input type="number" step="any" value="${item.qty}" onchange="updateReviewItemField(${index}, 'qty', this.value)" class="w-10 bg-slate-100 rounded text-center border border-slate-200 text-slate-700 py-0.5 font-mono" />
+                <span>st/kg ×</span>
+                <input type="number" step="0.01" value="${item.unit_price.toFixed(2)}" onchange="updateReviewItemField(${index}, 'unit_price', this.value)" class="w-14 bg-slate-100 rounded text-center border border-slate-200 text-slate-700 py-0.5 font-mono" />
+                <span>€</span>
+              </div>
+            </div>
+            <div class="flex items-center space-x-1.5 shrink-0">
+              <span class="font-mono text-xs font-bold text-slate-900 w-16 text-right pt-1">${item.total_price.toFixed(2)} €</span>
+              <button onclick="removeReviewItemRow(${index})" class="p-1 opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-all shrink-0 cursor-pointer" title="Ta bort">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+              </button>
+            </div>
+          `;
+          container.appendChild(row);
+        });
 
+        recalculateReceiptSum();
+      }
+
+      function updateReviewItemField(index, field, value) {
+        if (!currentReceipt || !currentReceipt.items[index]) return;
+        
+        const item = currentReceipt.items[index];
+        if (field === "name") {
+          item.name = String(value);
+        } else if (field === "qty") {
+          item.qty = Math.max(0.01, parseFloat(value) || 1);
+          item.total_price = Number((item.qty * item.unit_price).toFixed(2));
+        } else if (field === "unit_price") {
+          item.unit_price = Math.max(0, parseFloat(value) || 0);
+          item.total_price = Number((item.qty * item.unit_price).toFixed(2));
+        }
+
+        renderReceiptReviewTable();
+      }
+
+      function removeReviewItemRow(index) {
+        if (!currentReceipt) return;
+        currentReceipt.items.splice(index, 1);
+        renderReceiptReviewTable();
+        showToast("Vara borttagen", "Korrigerat i kvittogranskningen.");
+      }
+
+      function appendEmptyReviewRow() {
+        if (!currentReceipt) return;
+        
+        currentReceipt.items.push({
+          name: "Ny produkt",
+          qty: 1,
+          unit_price: 1.00,
+          total_price: 1.00
+        });
+
+        renderReceiptReviewTable();
+        
+        // Scroll to bottom of items list
+        setTimeout(() => {
+          const container = document.getElementById("receipt-items-container");
+          container.scrollTop = container.scrollHeight;
+        }, 50);
+      }
+
+      function recalculateReceiptSum() {
+        if (!currentReceipt) return;
+
+        // Sum net total
+        const netTotal = currentReceipt.items.reduce((acc, current) => acc + current.total_price, 0);
+        currentReceipt.total = Number(netTotal.toFixed(2));
+
+        const pant = currentReceipt.pant_total || 0;
+        const grossTotal = currentReceipt.total + pant;
+
+        document.getElementById("receipt-pant-display").innerText = `+${pant.toFixed(2)} €`;
+        document.getElementById("total-gross-display").innerText = `${grossTotal.toFixed(2)} €`;
+        document.getElementById("total-pant-deduct-display").innerText = `-${pant.toFixed(2)} €`;
+        document.getElementById("total-net-display").innerText = `${currentReceipt.total.toFixed(2)} €`;
+      }
+
+      // ==========================================
+      // --- DATABASE SYNC & CACHE HANDLERS -------
+      // ==========================================
+      async function commitReceiptToFirebase() {
+        if (!currentReceipt) {
+          showToast("Kunde inte spara", "Inget kvitto att lagra.", true);
+          return;
+        }
+
+        // Trigger loading visual feedback on badge
+        const badge = document.getElementById("badge-saved-status");
+        badge.innerText = "Sparar...";
+        badge.className = "px-2.5 py-1 rounded-full text-[9px] font-bold bg-amber-500/20 text-amber-500 border border-amber-500/30 uppercase animate-pulse";
+
+        try {
+          // 1. Save to Firebase Realtime Database
+          const relativePath = `days/${currentReceipt.date}/receipts`;
+          
+          if (firebaseInitialized && database) {
+            await database.ref(relativePath).push(currentReceipt);
+            console.log("Committed directly to Firebase Realtime Database at path: ", relativePath);
+          } else {
+            // Save to localStorage simulated database
+            let localDB = JSON.parse(localStorage.getItem("simulated_firebase_db")) || {};
+            if (!localDB[relativePath]) {
+              localDB[relativePath] = [];
+            }
+            localDB[relativePath].push(currentReceipt);
+            localStorage.setItem("simulated_firebase_db", JSON.stringify(localDB));
+            console.warn("Offline fallback. Saved to simulated_firebase_db cache.");
+          }
+
+          // 2. Hydrate flat LocalStorage Cache (kvitto_product_cache)
+          updateProductCacheWithReceipt(currentReceipt);
+
+          // 3. Update status badge to Saved
+          badge.innerText = "Sparad";
+          badge.className = "px-2.5 py-1 rounded-full text-[9px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-500/20 uppercase";
+
+          showToast("Kvitto Sparat", "Lagrat i databas och produktindex synkat.");
+
+          // Auto route to Dashboard to view updated trends
+          setTimeout(() => {
+            showTab("dashboard");
+            // Auto-select first item that was in the receipt to show its updated trend!
+            if (currentReceipt.items && currentReceipt.items.length > 0) {
+              const cache = getProductCache();
+              const savedProduct = cache[currentReceipt.items[0].name];
+              if (savedProduct) {
+                renderProductTrendGraph(savedProduct);
+              }
+            }
+          }, 800);
+
+        } catch (err) {
+          console.error("Database save failed: ", err);
+          badge.innerText = "Fel";
+          badge.className = "px-2.5 py-1 rounded-full text-[9px] font-bold bg-red-950 text-red-400 border border-red-500/20 uppercase";
+          showToast("Kunde inte spara", "Synkfel mot Firebase. Kontrollera behörigheter.", true);
+        }
+      }
+
+      function updateProductCacheWithReceipt(receipt) {
+        const cache = getProductCache();
+
+        receipt.items.forEach(item => {
+          const prodName = item.name;
+          const pricePaid = item.unit_price; // use net unit price
+          
+          if (!cache[prodName]) {
+            cache[prodName] = {
+              name: prodName,
+              category: "Övrigt",
+              currentPrice: pricePaid,
+              history: []
+            };
+          }
+
+          // Check if date point already exists to overwrite or push
+          const historyList = cache[prodName].history;
+          const existsIdx = historyList.findIndex(pt => pt.date === receipt.date);
+          
+          const newPoint = {
+            date: receipt.date,
+            price: pricePaid,
+            store: receipt.store
+          };
+
+          if (existsIdx !== -1) {
+            historyList[existsIdx] = newPoint;
+          } else {
+            historyList.push(newPoint);
+          }
+
+          // Sort history by date chronologically
+          historyList.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+          // Set latest price
+          cache[prodName].currentPrice = pricePaid;
+        });
+
+        saveProductCache(cache);
+      }
+
+      // ==========================================
+      // --- DASHBOARD / HISTORIK LIST-RENDERER ----
+      // ==========================================
+      function renderCachedProductList(filterQuery = "") {
+        const listContainer = document.getElementById("history-product-list");
+        const cache = getProductCache();
+        const productKeys = Object.keys(cache);
+        
+        listContainer.innerHTML = "";
+
+        let matchCount = 0;
+
+        productKeys.forEach(key => {
+          const prod = cache[key];
+          
+          // Apply search query filter
+          if (filterQuery && !prod.name.toLowerCase().includes(filterQuery.toLowerCase()) && !prod.category.toLowerCase().includes(filterQuery.toLowerCase())) {
+            return;
+          }
+
+          matchCount++;
+
+          const row = document.createElement("div");
+          row.className = "p-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-between border border-transparent bg-[#0B1221] hover:bg-slate-800/30 text-slate-300";
+          row.onclick = () => renderProductTrendGraph(prod);
+          row.setAttribute("data-product-name", prod.name);
+          
           row.innerHTML = `
             <div>
-              <h4 class="text-xs font-semibold truncate max-w-[200px]">${prod.name}</h4>
-              <span class="text-[10px] text-slate-400 font-mono">
-                ${prod.category} • ${prod.history.length} loggade priser
+              <h4 class="text-xs font-semibold truncate max-w-[200px] text-white">${prod.name}</h4>
+              <span class="text-[9px] text-slate-400 font-mono">
+                ${prod.category} • ${prod.history.length} pris-loggar
               </span>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center space-x-2">
               <span class="font-mono text-xs font-bold text-amber-500">
                 ${prod.currentPrice.toFixed(2)} €
               </span>
@@ -1077,85 +1072,133 @@
 
           listContainer.appendChild(row);
         });
+
+        // Set search stats badges
+        document.getElementById("cached-count-badge").innerText = `${matchCount} varor cacheade`;
+
+        if (matchCount === 0) {
+          listContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6 font-sans">Inga produkter matchar sökningen.</p>`;
+        }
       }
 
-      function handleSearch(event) {
-        searchQuery = event.target.value;
-        renderHistoryProducts();
+      function filterCachedProducts() {
+        const query = document.getElementById("product-search-input").value;
+        renderCachedProductList(query);
       }
 
-      function renderChart() {
-        const prod = HISTORICAL_PRODUCTS[selectedProductIndex];
-        if (!prod) return;
+      function renderProductTrendGraph(product) {
+        // Highlighting active visual selection
+        const allListItems = document.querySelectorAll("#history-product-list > div");
+        allListItems.forEach(item => {
+          const itemProdName = item.getAttribute("data-product-name");
+          if (itemProdName === product.name) {
+            item.className = "p-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-between border border-sky-500/30 bg-[#1E2E4B] text-white";
+          } else {
+            item.className = "p-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-between border border-transparent bg-[#0B1221] hover:bg-slate-800/30 text-slate-300";
+          }
+        });
 
-        // Render metadata
-        document.getElementById("chart-title").innerText = prod.name;
-        document.getElementById("chart-category").innerText = prod.category;
-        document.getElementById("chart-current-price").innerText = prod.currentPrice.toFixed(2) + " €";
+        // Toggle detailed container visible
+        const detailBox = document.getElementById("trend-details-container");
+        detailBox.classList.remove("hidden");
 
-        // Generate Insight Description string dynamically
-        const lowestPrice = Math.min(...prod.history.map(pt => pt.price));
-        const lowestDate = prod.history.find(pt => pt.price === lowestPrice)?.date;
-        
-        document.getElementById("chart-insight-text").innerHTML = `
-          Produkten köptes billigast hos <strong class="text-slate-200 font-bold">S-Market Perniö</strong> den ${lowestDate} för ${lowestPrice.toFixed(2)} € tack vare en automatisk kampanjavstämning.
-        `;
+        // Hydrate header content details
+        document.getElementById("trend-category-badge").innerText = product.category || "Övrigt";
+        document.getElementById("trend-product-name").innerText = product.name;
+        document.getElementById("trend-latest-price").innerText = `${product.currentPrice.toFixed(2)} €`;
 
-        // Render pure HTML visual Bar elements
-        const barsContainer = document.getElementById("chart-bars-container");
+        // Generate customized HTML bar charts
+        const barsContainer = document.getElementById("trend-graph-bars");
         barsContainer.innerHTML = "";
 
-        const prices = prod.history.map(p => p.price);
-        const maxPrice = Math.max(...prices);
-        const minPrice = Math.min(...prices);
+        if (!product.history || product.history.length === 0) {
+          // If no custom history points, fake one or draw current price as single bar
+          product.history = [{ date: "2026-06-30", price: product.currentPrice, store: "S-Market Perniö" }];
+        }
 
-        prod.history.forEach((pt, index) => {
-          const isLowest = pt.price === minPrice;
-          
-          // Calculate percentage height for CSS style rendering
-          const barHeightPct = Math.round((pt.price / maxPrice) * 100);
-          
+        const maxPrice = Math.max(...product.history.map(p => p.price)) * 1.25 || 1.0;
+        const minPrice = Math.min(...product.history.map(p => p.price));
+
+        product.history.forEach((point, index) => {
+          const heightPercent = Math.max(15, (point.price / maxPrice) * 100);
+          const isLowest = point.price === minPrice && product.history.length > 1;
+
           const barWrapper = document.createElement("div");
           barWrapper.className = "flex-1 flex flex-col items-center group relative z-10";
+          
           barWrapper.innerHTML = `
-            <!-- Hover tooltip info bubble -->
-            <div class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#0B1221] border border-slate-800 rounded-lg p-1 px-2 text-[9px] text-center pointer-events-none shadow-xl z-50 whitespace-nowrap">
-              <p class="text-white font-bold">${pt.price.toFixed(2)} €</p>
-              <p class="text-slate-400 text-[8px]">${pt.store}</p>
+            <!-- Hover Tooltip -->
+            <div class="absolute -top-12 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-[#0B1221] border border-slate-800 rounded-lg p-1.5 px-2 text-[9px] text-center pointer-events-none shadow-xl z-50 whitespace-nowrap font-mono">
+              <p class="text-white font-bold">${point.price.toFixed(2)} €</p>
+              <p class="text-slate-400 text-[8px]">${point.store || "S-Market"}</p>
             </div>
 
-            <!-- Price text directly above bar -->
-            <span class="text-[9px] font-semibold mb-1 ${
-              isLowest ? "text-emerald-400 font-bold" : pt.isDiscount ? "text-amber-400 font-bold" : "text-slate-400"
-            }">
-              ${pt.price.toFixed(2)} €
+            <!-- Price value top identifier -->
+            <span class="text-[9px] font-semibold mb-1 ${isLowest ? "text-emerald-400 font-bold" : "text-slate-400"}">
+              ${point.price.toFixed(2)} €
             </span>
 
-            <!-- Colored Fill Bar -->
-            <div
-              class="w-8 rounded-t-md relative transition-all duration-300 hover:brightness-110 ${
-                isLowest
-                  ? "bg-emerald-500/80 shadow-md shadow-emerald-900/20"
-                  : pt.isDiscount
-                    ? "bg-amber-500/80 shadow-md shadow-amber-900/20"
-                    : "bg-slate-700/60"
-              }"
-              style="height: ${Math.max(barHeightPct - 20, 10)}px"
-            >
-              ${pt.isDiscount ? `
-                <div class="absolute -top-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 rounded-full bg-amber-500 border-2 border-[#1A2333] animate-pulse"></div>
-              ` : ""}
+            <!-- Vertical Bar Column -->
+            <div class="w-8 ${isLowest ? "bg-emerald-500 hover:bg-emerald-400" : "bg-amber-500 hover:bg-amber-400"} rounded-t-md transition-all duration-300 relative shadow-md" style="height: ${heightPercent}px">
+              ${point.isDiscount ? '<div class="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-sky-400 border border-slate-950 animate-pulse"></div>' : ''}
             </div>
 
-            <!-- Month/Date Label -->
-            <span class="text-[9px] text-slate-500 mt-2 rotate-12 origin-top-left">
-              ${pt.date.split("-")[1]}/${pt.date.split("-")[2]}
+            <!-- Date tag footer -->
+            <span class="text-[8px] text-slate-500 mt-2">
+              ${point.date.slice(5)}
             </span>
           `;
 
           barsContainer.appendChild(barWrapper);
         });
+
+        // Render insight texts dynamically
+        const trendText = document.getElementById("trend-insight-text");
+        if (product.history.length > 1) {
+          const diffPercent = ((product.currentPrice - product.history[0].price) / product.history[0].price * 100).toFixed(1);
+          const isNegative = parseFloat(diffPercent) < 0;
+          
+          trendText.innerHTML = `Prisutvecklingen sedan första mätningen (${product.history[0].date}) är 
+            <strong class="${isNegative ? "text-emerald-400" : "text-red-400"} font-bold">${diffPercent}%</strong>. 
+            Varukategorin är klassad som <strong>Minst fluktuerande</strong> baserat på skärgårdens inköpsstatistik.`;
+        } else {
+          trendText.innerHTML = `Denna produkt lades precis till. Vi jämför prisskillnader direkt när fler kvitton skannas från Kivra eller andra butiker.`;
+        }
       }
+
+      // ==========================================
+      // --- INTERFACES & TOAST POPUPS -------------
+      // ==========================================
+      function showToast(title, desc, isError = false) {
+        const toast = document.getElementById("toast");
+        const titleEl = document.getElementById("toast-title");
+        const descEl = document.getElementById("toast-desc");
+
+        titleEl.innerText = title;
+        descEl.innerText = desc;
+
+        if (isError) {
+          toast.className = "transform translate-y-[-10px] opacity-0 transition-all duration-300 mb-4 p-3.5 bg-gradient-to-r from-red-950/90 to-[#102A45]/95 border border-red-500/30 rounded-2xl text-xs text-red-300 flex items-center space-x-3 shadow-xl shadow-black/50 z-50 fixed bottom-4 left-4 right-4 max-w-sm mx-auto";
+        } else {
+          toast.className = "transform translate-y-[-10px] opacity-0 transition-all duration-300 mb-4 p-3.5 bg-gradient-to-r from-emerald-950/90 to-[#102A45]/95 border border-emerald-500/30 rounded-2xl text-xs text-emerald-300 flex items-center space-x-3 shadow-xl shadow-black/50 z-50 fixed bottom-4 left-4 right-4 max-w-sm mx-auto";
+        }
+
+        // Slide in animation
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+          toast.classList.add("translate-y-0", "opacity-100");
+        }, 50);
+
+        // Slide out animation
+        setTimeout(() => {
+          toast.classList.remove("translate-y-0", "opacity-100");
+          toast.classList.add("translate-y-[-10px]", "opacity-0");
+          setTimeout(() => {
+            toast.classList.add("hidden");
+          }, 300);
+        }, 4000);
+      }
+
     </script>
   </body>
 </html>
